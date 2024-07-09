@@ -5,8 +5,13 @@ import LittleLemonLogo from '../assets/little-lemon-logo.png';
 const WelcomeScreen = ({ navigation }) => {
   // Add welcome screen code here.
   return (
-  <View style={{flex: 1}}>
-    <Image source={LittleLemonLogo} style={styles.image} />
+  <View style={styles.container}>
+    <Image 
+      source={LittleLemonLogo} 
+      style={styles.image} 
+      accessible
+      accessibilityLabel='Little Lemon Logo'
+      />
     <Text style={styles.welcomeText}>
       Little Lemon, your local Mediterranean Bistro
     </Text>
@@ -26,6 +31,9 @@ export default WelcomeScreen;
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   image: {
     width: 200,
     height: 200,

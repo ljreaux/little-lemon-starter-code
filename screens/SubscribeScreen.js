@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Text, Image, StyleSheet, Pressable, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Alert, View, Text, Image, StyleSheet, Pressable, TextInput, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import LittleLemonLogo from '../assets/little-lemon-logo-grey.png';
 import { validateEmail } from "../utils/index"
 
@@ -8,9 +8,13 @@ const SubscribeScreen = () => {
   const isValid = validateEmail(email);
 
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.container}
+
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
     >
-      <ScrollView style={styles.container}>
+      <View style={styles.contentContainer}>
         <Image source={LittleLemonLogo} style={styles.image} />
         <Text style={styles.subscribeText}>
           Subscribe to our newsletter for our latest delicious recipes!
@@ -27,12 +31,13 @@ const SubscribeScreen = () => {
           style={styles.buttonStyles}
           disabled={!isValid}
         >
-          <Text style={[styles.buttonText, !isValid && {backgroundColor: '#ccc'}]}>
+          <Text style={[styles.buttonText, !isValid && { backgroundColor: '#ccc' }]}>
             Subscribe
           </Text>
         </Pressable>
-      </ScrollView>
+      </View>
     </KeyboardAvoidingView>
+
   );
 };
 
@@ -42,11 +47,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   image: {
     width: 150,
     height: 150,
     resizeMode: 'contain',
-    marginTop: 100,
     marginBottom: 20,
     alignSelf: 'center'
   },
@@ -69,6 +77,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 8,
     overflow: 'hidden',
+    marginBottom: 100
   },
   buttonText: {
     flex: .8,
@@ -77,5 +86,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E524B',
     color: 'white',
     padding: 10,
+    
   }
 })
